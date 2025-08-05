@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Minecraft Block Text Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Image to Minecraft Block Text Converter</h1>
+            <p>Convert images to Minecraft block text using object text components with high quality and variety</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content" id="uploadContent">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <h3>Upload Image</h3>
+                        <p>Drag and drop an image here or click to browse</p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                        <button class="browse-btn" onclick="document.getElementById('fileInput').click()">Browse Files</button>
+                    </div>
+                    <div class="upload-preview" id="uploadPreview" style="display: none;">
+                        <div class="preview-image-container">
+                            <img id="previewImage" alt="Preview">
+                        </div>
+                        <div class="upload-info">
+                            <h4 id="fileName">Image loaded</h4>
+                            <p id="fileSize">Ready to convert</p>
+                        </div>
+                        <button class="change-image-btn" onclick="document.getElementById('fileInput').click()">Change Image</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="control-group">
+                    <label for="blockSize">Block Size:</label>
+                    <select id="blockSize">
+                        <option value="8">8x8 (Small)</option>
+                        <option value="16" selected>16x16 (Medium)</option>
+                        <option value="32">32x32 (Large)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="dithering">Dithering:</label>
+                    <select id="dithering">
+                        <option value="none">None</option>
+                        <option value="floyd-steinberg" selected>Floyd-Steinberg</option>
+                        <option value="ordered">Ordered</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="brightness">Brightness:</label>
+                    <input type="range" id="brightness" min="0" max="200" value="100">
+                    <span id="brightnessValue">100%</span>
+                </div>
+                <div class="control-group">
+                    <label for="contrast">Contrast:</label>
+                    <input type="range" id="contrast" min="0" max="200" value="100">
+                    <span id="contrastValue">100%</span>
+                </div>
+                <div class="control-group">
+                    <label for="removeSlashes">Remove slashes from commands:</label>
+                    <input type="checkbox" id="removeSlashes" checked>
+                    <span>Enabled</span>
+                </div>
+                <button id="convertBtn" class="convert-btn" disabled>Convert to Blocks</button>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="result-tabs">
+                    <button class="tab-btn active" data-tab="preview">Preview</button>
+                    <button class="tab-btn" data-tab="commands">Commands</button>
+                    <button class="tab-btn" data-tab="json">JSON</button>
+                </div>
+
+                <div class="tab-content">
+                    <div id="previewTab" class="tab-pane active">
+                        <div class="preview-container">
+                            <canvas id="previewCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="commandsTab" class="tab-pane">
+                        <div class="commands-container">
+                            <div class="command-header">
+                                <h3>Tellraw Commands</h3>
+                                <button id="copyCommands" class="copy-btn">Copy All</button>
+                            </div>
+                            <div id="commandsOutput" class="commands-output"></div>
+                        </div>
+                    </div>
+
+                    <div id="jsonTab" class="tab-pane">
+                        <div class="json-container">
+                            <div class="json-header">
+                                <h3>JSON Output</h3>
+                                <button id="copyJson" class="copy-btn">Copy JSON</button>
+                            </div>
+                            <pre id="jsonOutput" class="json-output"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
